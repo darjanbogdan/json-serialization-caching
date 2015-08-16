@@ -23,7 +23,7 @@ namespace JsonSerializationCaching.Serialization
         #endregion Constructors
 
         #region Methods
-
+        
         public void Serialize(JsonWriter writer, JsonSerializer serializer)
         {
             GetSerializedObject(writer, serializer);

@@ -77,8 +77,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestModel\Seed\CitySeedFactory.cs" />
+    <Compile Include="TestModel\Seed\CountrySeedFactory.cs" />
+    <Compile Include="TestModel\Seed\SeedFactory.cs" />
+    <Compile Include="TestModel\Seed\WeatherReadingSeedFactory.cs" />
     <Compile Include="TestModel\Weather.cs" />
-    <Compile Include="Tests\UnitTest1.cs" />
+    <Compile Include="Tests\PerformanceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JsonSerializationCaching\JsonSerializationCaching.csproj">
