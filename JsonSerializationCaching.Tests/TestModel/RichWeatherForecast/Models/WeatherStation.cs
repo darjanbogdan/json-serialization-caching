@@ -1,12 +1,11 @@
 ﻿using JsonSerializationCaching.Serialization;
-using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast
+namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
     public class WeatherStation : CachingSerializable, IIdentity
     {

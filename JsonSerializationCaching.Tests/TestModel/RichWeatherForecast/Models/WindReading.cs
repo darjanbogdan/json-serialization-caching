@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast
+namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
     public class WindReading : CachingSerializable, IIdentity
     {

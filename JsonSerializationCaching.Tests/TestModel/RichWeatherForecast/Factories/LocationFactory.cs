@@ -1,14 +1,20 @@
-﻿using System;
+﻿using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
+namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
 {
-    public static class LocationFactory
+    public class LocationFactory : FakeFactory<LocationFactory, Location>
     {
-        public static Location GetRandomLocation()
+        public override Location CreateFakeItem(int id)
+        {
+            return CreateFakeItem();
+        }
+
+        public Location CreateFakeItem()
         {
             return new Location()
             {

@@ -1,28 +1,15 @@
-﻿using System;
+﻿using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
+namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Generators
 {
-    public class CountryFactory : DataFactory<Country>
+    public class CountryGenerator : SingletonDataGenerator<CountryGenerator, Country>
     {
-        private static CountryFactory instance;
-
-        private CountryFactory()
-        {
-
-        }
-
-        public static CountryFactory GetInstance()
-        {
-            if (instance == null)
-                instance = new CountryFactory();
-            return instance;
-        }
-
-        protected override void Populate(List<Country> data)
+        public override void PopulateCollection(int? collectionLength = null)
         {
             var countries = new List<Country>()
             {
@@ -41,7 +28,7 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
                     TotalArea = 41543
                 }
             };
-            data.AddRange(countries);
+            this.DataCollection = countries;
         }
     }
 }

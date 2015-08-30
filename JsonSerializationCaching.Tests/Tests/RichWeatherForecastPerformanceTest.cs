@@ -1,6 +1,7 @@
 ﻿using JsonSerializationCaching.Serialization;
 using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast;
-using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Generators;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,18 +20,14 @@ namespace JsonSerializationCaching.Tests.Tests
         public void PerformanceTest_RichWeatherForcesat_JsonSerialization()
         {
             #region Seed
+            
+            var weatherDefaultStations = WeatherStationGenerator.GetInstance(100);
+            var weatherCachingStations = WeatherStationGenerator.GetInstance(100);
 
-            CountryFactory.GetInstance().Initialize();
-            CityFactory.GetInstance().Initialize();
-            HumidityReadingFactory.GetInstance().Initialize(100);
-            PrecipitationReadingFactory.GetInstance().Initialize(100);
-            TemperatureReadingFactory.GetInstance().Initialize(100);
-            WindReadingFactory.GetInstance().Initialize(100);
-
-            var weatherDefaultStations = WeatherStationFactory.GetInstance();
-            weatherDefaultStations.Initialize(20);
-            var weatherCachedStations = WeatherStationFactory.GetInstance();
-            weatherCachedStations.Initialize(20);
+            //Include this to prevent GC to collect objects - test purpose only
+            //Didn't helped
+            //defaultStations = weatherDefaultStations.DataCollection;
+            //cachingStations = weatherCachingStations.DataCollection;
 
             #endregion
 
@@ -42,7 +39,7 @@ namespace JsonSerializationCaching.Tests.Tests
             //Caching serialization
             JsonSerializer cachingSerializer = JsonSerializer.Create(CachingSettings.Default);
             cachingSerializer.ContractResolver = new CachingContractResolver();
-            var cachingMeasurement = TestSerializationPerformance(cachingSerializer, weatherCachedStations.DataCollection);
+            var cachingMeasurement = TestSerializationPerformance(cachingSerializer, weatherCachingStations.DataCollection);
             this.LogMeasurement("Caching Measurement", cachingMeasurement);
         }
 
@@ -60,7 +57,6 @@ namespace JsonSerializationCaching.Tests.Tests
                     testOverview.Add(i, watch.Elapsed.TotalMilliseconds);
                     watch.Reset();
                 }
-
             }
             return testOverview;
         }
@@ -84,7 +80,7 @@ namespace JsonSerializationCaching.Tests.Tests
             {
                 weatherStation.WeatherReadings.RemoveAll(wr => wr.Id == weatherReading.Id);
             }
-            weatherStation.WeatherReadings.Add(WeatherReadingFactory.GetInstance().CreateItem(weatherReadingId));
+            //weatherStation.WeatherReadings.Add(WeatherReadingGenerator.GetInstance().CreateItem(weatherReadingId));
         }
 
         private void LogMeasurement(string measurementTitle, Dictionary<int, double> measurement)
