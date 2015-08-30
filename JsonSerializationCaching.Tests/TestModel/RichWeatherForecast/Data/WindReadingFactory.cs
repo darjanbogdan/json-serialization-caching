@@ -10,11 +10,9 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
     {
         private static WindReadingFactory instance;
 
-        private int collectionLength;
-
         private WindReadingFactory(int collectionLength)
+            : base(collectionLength)
         {
-            this.collectionLength = collectionLength;
         }
 
         public static WindReadingFactory GetInstance(int collectionLength)
@@ -24,19 +22,24 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             return instance;
         }
 
+        protected override WindReading CreateItem(int id)
+        {
+            return new WindReading()
+            {
+                Id = id,
+                BeaufortNumber = Utils.GetRandomNumber(13),
+                Description = Utils.GetRandomEnumValue<WindDescription>(),
+                Direction = Utils.GetRandomEnumValue<WindDirection>(),
+                Gust = Utils.GetRandomNumber(250),
+                Speed = Utils.GetRandomNumber(220)
+            };
+        }
+
         protected override void Populate(List<WindReading> data)
         {
-            for (int i = 0; i < this.collectionLength; i++)
+            for (int i = 0; i < this.DataCollectionlength; i++)
             {
-                data.Add(new WindReading()
-                {
-                    Id = i,
-                    BeaufortNumber = Utils.GetRandomNumber(13),
-                    Description = Utils.GetRandomEnumValue<WindDescription>(),
-                    Direction = Utils.GetRandomEnumValue<WindDirection>(),
-                    Gust = Utils.GetRandomNumber(250),
-                    Speed = Utils.GetRandomNumber(220)
-                });
+                data.Add(this.CreateItem(i));
             }
         }
     }

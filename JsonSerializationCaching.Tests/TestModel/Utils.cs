@@ -29,7 +29,7 @@ namespace JsonSerializationCaching.Tests.TestModel
 
         public static T GetRandomEnumValue<T>()
         {
-            var v = Enum.GetNames(typeof(T));
+            var v = Enum.GetValues(typeof(T));
             return (T)v.GetValue(new Random(new Guid().GetHashCode()).Next(v.Length));
         }
 

@@ -1,4 +1,5 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,6 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast
 
         public City City { get; set; }
 
-        public IEnumerable<WeatherReading> WeatherReadings { get; set; }
+        public List<WeatherReading> WeatherReadings { get; set; }
     }
 }

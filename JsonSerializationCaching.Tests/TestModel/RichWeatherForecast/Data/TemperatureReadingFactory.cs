@@ -10,11 +10,9 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
     {
         private static TemperatureReadingFactory instance;
 
-        private int collectionLength;
-
         private TemperatureReadingFactory(int collectionLength)
+            : base(collectionLength)
         {
-            this.collectionLength = collectionLength;
         }
 
         public static TemperatureReadingFactory GetInstance(int collectionLength)
@@ -24,18 +22,23 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             return instance;
         }
 
+        protected override TemperatureReading CreateItem(int id)
+        {
+            return new TemperatureReading()
+            {
+                Id = id,
+                Description = Utils.GetRandomEnumValue<TemperatureDescription>(),
+                DewPoint = Utils.GetRandomNumber(25),
+                Temperature = Utils.GetRandomNumber(50),
+                ReelFeel = Utils.GetRandomNumber(50),
+            };
+        }
+
         protected override void Populate(List<TemperatureReading> data)
         {
-            for (int i = 0; i < this.collectionLength; i++)
+            for (int i = 0; i < this.DataCollectionlength; i++)
             {
-                data.Add(new TemperatureReading()
-                {
-                    Id = i,
-                    Description = Utils.GetRandomEnumValue<TemperatureDescription>(),
-                    DewPoint = Utils.GetRandomNumber(25),
-                    Temperature = Utils.GetRandomNumber(50),
-                    ReelFeel = Utils.GetRandomNumber(50),
-                });
+                data.Add(this.CreateItem(i));
             }
         }
     }

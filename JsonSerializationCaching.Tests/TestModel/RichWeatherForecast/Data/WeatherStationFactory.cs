@@ -8,11 +8,9 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
 {
     public class WeatherStationFactory : DataFactory<WeatherStation>
     {
-        private int collectionLength;
-
         private WeatherStationFactory(int collectionLength)
+            : base(collectionLength)
         {
-            this.collectionLength = collectionLength;
         }
 
         public static WeatherStationFactory GetInstance(int collectionLength)
@@ -20,19 +18,24 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             return new WeatherStationFactory(collectionLength);
         }
 
-        protected override void Populate(List<WeatherStation> data)
+        protected override WeatherStation CreateItem(int id)
         {
             var cityFactory = CityFactory.GetInstance(0);
-            var weatherReadingsFactory = WeatherReadingFactory.GetInstance(1000);
-            for (int i = 0; i < this.collectionLength; i++)
+
+            return new WeatherStation()
             {
-                data.Add(new WeatherStation()
-                {
-                    Id = i,
-                    City = cityFactory.GetRandomItem(),
-                    Location = LocationFactory.GetRandomLocation(),
-                    WeatherReadings = weatherReadingsFactory.DataCollection
-                });
+                Id = id,
+                City = cityFactory.GetRandomItem(),
+                Location = LocationFactory.GetRandomLocation(),
+                WeatherReadings = WeatherReadingFactory.GetInstance(1000).DataCollection.ToList()
+            };
+        }
+
+        protected override void Populate(List<WeatherStation> data)
+        {
+            for (int i = 0; i < this.DataCollectionlength; i++)
+            {
+                data.Add(this.CreateItem(i));
             }
         }
     }

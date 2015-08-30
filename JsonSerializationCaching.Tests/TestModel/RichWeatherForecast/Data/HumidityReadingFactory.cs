@@ -10,11 +10,9 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
     {
         private static HumidityReadingFactory instance;
 
-        private int collectionLength;
-
         private HumidityReadingFactory(int collectionLength)
+            : base(collectionLength)
         {
-            this.collectionLength = collectionLength;
         }
 
         public static HumidityReadingFactory GetInstance(int collectionLength)
@@ -24,16 +22,21 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             return instance;
         }
 
+        protected override HumidityReading CreateItem(int id)
+        {
+            return new HumidityReading()
+            {
+                Id = id,
+                Description = Utils.GetRandomEnumValue<HumidityDescription>(),
+                Humidity = Utils.GetRandomNumber(101)
+            };
+        }
+
         protected override void Populate(List<HumidityReading> data)
         {
-            for (int i = 0; i < this.collectionLength; i++)
+            for (int i = 0; i < this.DataCollectionlength; i++)
             {
-                data.Add(new HumidityReading()
-                {
-                    Id = i,
-                    Description = Utils.GetRandomEnumValue<HumidityDescription>(),
-                    Humidity = Utils.GetRandomNumber(101)
-                });
+                data.Add(this.CreateItem(i));
             }
         }
     }

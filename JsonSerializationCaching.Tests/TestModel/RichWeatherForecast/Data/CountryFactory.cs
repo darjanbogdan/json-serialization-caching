@@ -11,6 +11,7 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
         private static CountryFactory instance;
 
         private CountryFactory()
+            : base(0)
         {
 
         }
@@ -20,6 +21,11 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             if (instance == null)
                 instance = new CountryFactory();
             return instance;
+        }
+
+        protected override Country CreateItem(int id)
+        {
+            return new Country() { Id = id };
         }
 
         protected override void Populate(List<Country> data)

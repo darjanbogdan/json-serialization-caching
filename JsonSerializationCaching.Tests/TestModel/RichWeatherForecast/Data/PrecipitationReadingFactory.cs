@@ -10,11 +10,9 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
     {
         private static PrecipitationReadingFactory instance;
 
-        private int collectionLength;
-
         private PrecipitationReadingFactory(int collectionLength)
+            : base(collectionLength)
         {
-            this.collectionLength = collectionLength;
         }
 
         public static PrecipitationReadingFactory GetInstance(int collectionLength)
@@ -24,65 +22,25 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             return instance;
         }
 
+        protected override PrecipitationReading CreateItem(int id)
+        {
+            return new PrecipitationReading()
+            {
+                Id = id,
+                HoursOfRain = Utils.GetRandomNumber(25),
+                HoursOverall = Utils.GetRandomNumber(25),
+                Ice = Utils.GetRandomNumber(2),
+                Rain = Utils.GetRandomNumber(10),
+                Snow = Utils.GetRandomNumber(150)
+            };
+        }
+
         protected override void Populate(List<PrecipitationReading> data)
         {
-            var precipitations = new List<PrecipitationReading>()
+            for (int i = 0; i < this.DataCollectionlength; i++)
             {
-                new PrecipitationReading()
-                {
-                    Id = 1,
-                    Rain = 20,
-                    Ice = 0,
-                    Snow = 0,
-                    HoursOfRain = 2,
-                    HoursOverall = 2
-                },
-                new PrecipitationReading()
-                {
-                    Id = 2,
-                    Rain = 10,
-                    Ice = 5,
-                    Snow = 0,
-                    HoursOfRain = 1,
-                    HoursOverall = 4
-                },
-                new PrecipitationReading()
-                {
-                    Id = 3,
-                    Rain = 4,
-                    Ice = 10,
-                    Snow = 0,
-                    HoursOfRain = 1,
-                    HoursOverall = 4
-                },
-                new PrecipitationReading()
-                {
-                    Id = 4,
-                    Rain = 0,
-                    Ice = 0,
-                    Snow = 200,
-                    HoursOfRain = 0,
-                    HoursOverall = 10
-                },
-                new PrecipitationReading()
-                {
-                    Id = 5,
-                    Rain = 0,
-                    Ice = 10,
-                    Snow = 5,
-                    HoursOfRain = 0,
-                    HoursOverall = 10
-                },
-                new PrecipitationReading()
-                {
-                    Id = 6,
-                    Rain = 10,
-                    Ice = 2,
-                    Snow = 7,
-                    HoursOfRain = 11,
-                    HoursOverall = 17
-                },
-            };
+                data.Add(this.CreateItem(i));
+            }
         }
     }
 }

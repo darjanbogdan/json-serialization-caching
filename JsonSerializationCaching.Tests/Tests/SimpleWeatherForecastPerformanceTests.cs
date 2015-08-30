@@ -36,7 +36,7 @@ namespace JsonSerializationCaching.Tests.Tests
             var defaultMeasurement = TestSerializationPerformance(defaultSerializer, readings);
             this.LogMeasurement("Default Measurement", defaultMeasurement);
             //Caching serialization
-            JsonSerializer cachingSerializer = JsonSerializer.Create();
+            JsonSerializer cachingSerializer = JsonSerializer.Create(CachingSettings.Default);
             cachingSerializer.ContractResolver = new CachingContractResolver();
             var cachingMeasurement = TestSerializationPerformance(cachingSerializer, readings);
             this.LogMeasurement("Caching Measurement", cachingMeasurement);
@@ -64,7 +64,7 @@ namespace JsonSerializationCaching.Tests.Tests
         private void LogMeasurement(string measurementTitle, Dictionary<int, double> measurement)
         {
             string applicationDirectory = Directory.GetCurrentDirectory();
-            using (TextWriter writer = new StreamWriter(String.Format("{0}\\{1}", applicationDirectory, "measurement.txt"), true))
+            using (TextWriter writer = new StreamWriter(String.Format("{0}\\{1}", applicationDirectory, "Simple weather forecast measurement.txt"), true))
             {
                 StringBuilder builder = new StringBuilder();
                 builder.AppendLine(String.Format("{0} {1}:", DateTime.Now.ToString(), measurementTitle));
