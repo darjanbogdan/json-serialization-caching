@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JsonSerializationCaching.Tests.TestModel.SimpleWeatherForecast
+﻿namespace JsonSerializationCaching.Tests.TestModel.SimpleWeatherForecast
 {
     public class CountrySeedFactory : SeedFactory<Country>
     {

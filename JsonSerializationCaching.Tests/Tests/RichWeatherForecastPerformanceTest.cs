@@ -1,5 +1,4 @@
 ﻿using JsonSerializationCaching.Serialization;
-using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast;
 using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Generators;
 using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
 using Newtonsoft.Json;
