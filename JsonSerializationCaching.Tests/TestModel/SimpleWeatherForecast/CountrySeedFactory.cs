@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JsonSerializationCaching.Tests.TestModel.Seed
+namespace JsonSerializationCaching.Tests.TestModel.SimpleWeatherForecast
 {
     public class CountrySeedFactory : SeedFactory<Country>
     {
@@ -16,9 +16,9 @@ namespace JsonSerializationCaching.Tests.TestModel.Seed
                 this.SeedCollection.Add(new Country()
                 {
                     Id = i,
-                    Name = GetRandomString(),
-                    Population = GetRandomNumber(1200000000),
-                    TotalAreaInSquareKilometers = GetRandomNumber(17000000)
+                    Name = Utils.GetRandomString(),
+                    Population = Utils.GetRandomNumber(1200000000),
+                    TotalAreaInSquareKilometers = Utils.GetRandomNumber(17000000)
                 });
             }
         }

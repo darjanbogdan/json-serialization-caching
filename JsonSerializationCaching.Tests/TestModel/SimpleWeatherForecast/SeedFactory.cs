@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace JsonSerializationCaching.Tests.TestModel.Seed
+namespace JsonSerializationCaching.Tests.TestModel.SimpleWeatherForecast
 {
     public abstract class SeedFactory<T> where T : class, new()
     {
@@ -21,24 +21,6 @@ namespace JsonSerializationCaching.Tests.TestModel.Seed
         }
 
         protected abstract void Seed(int collectionLength);
-
-        protected string GetRandomString()
-        {
-            StringBuilder builder = new StringBuilder();
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            int length = random.Next(40);
-            for (int i = 0; i < length; i++)
-            {
-                builder.Append((char)random.Next('a', 'z' + 1));
-            }
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(builder.ToString());
-        }
-
-        protected int GetRandomNumber(int maxValue)
-        {
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            return random.Next(maxValue);
-        }
 
         public T GeRandomItem()
         {

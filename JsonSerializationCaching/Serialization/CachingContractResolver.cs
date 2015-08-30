@@ -13,7 +13,7 @@ namespace JsonSerializationCaching.Serialization
 
             if (typeof(CachingSerializable).IsAssignableFrom(objectType))
             {
-                var serializer = JsonSerializer.Create(); //Create plain serializer with default contract resolver and converters
+                var serializer = JsonSerializer.Create(CachingSettings.Default); //Create plain serializer with default contract resolver and converters
                 contract.Converter = new CachingConverter(serializer);
             }
 

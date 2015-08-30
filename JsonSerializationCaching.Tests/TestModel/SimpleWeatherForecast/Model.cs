@@ -1,7 +1,7 @@
 ﻿using JsonSerializationCaching.Serialization;
 using System;
 
-namespace JsonSerializationCaching.Tests.TestModel
+namespace JsonSerializationCaching.Tests.TestModel.SimpleWeatherForecast
 {
     public class WeatherReading : CachingSerializable
     {

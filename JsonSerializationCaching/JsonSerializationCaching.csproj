@@ -48,6 +48,7 @@
     <Compile Include="Serialization\CachingSerializable.cs" />
     <Compile Include="Serialization\CachingContractResolver.cs" />
     <Compile Include="Serialization\CachingConverter.cs" />
+    <Compile Include="Serialization\CachingSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

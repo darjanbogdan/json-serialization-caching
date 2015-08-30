@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JsonSerializationCaching.Tests.TestModel.Seed
+namespace JsonSerializationCaching.Tests.TestModel.SimpleWeatherForecast
 {
     class WeatherReadingSeedFactory : SeedFactory<WeatherReading>
     {
@@ -19,10 +19,10 @@ namespace JsonSerializationCaching.Tests.TestModel.Seed
                 {
                     Id = i,
                     City = cityFactory.GeRandomItem(),
-                    Description = GetRandomString(),
-                    TemperatureInCelsius = GetRandomNumber(50),
-                    RainfallPercentage = GetRandomNumber(100),
-                    SurfaceWindPercentage = GetRandomNumber(100),
+                    Description = Utils.GetRandomString(),
+                    TemperatureInCelsius = Utils.GetRandomNumber(50),
+                    RainfallPercentage = Utils.GetRandomNumber(100),
+                    SurfaceWindPercentage = Utils.GetRandomNumber(100),
                     ReadingDate = DateTime.UtcNow
                 });
             }
