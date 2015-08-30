@@ -10,19 +10,18 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
     {
         private static PrecipitationReadingFactory instance;
 
-        private PrecipitationReadingFactory(int collectionLength)
-            : base(collectionLength)
+        private PrecipitationReadingFactory()
         {
         }
 
-        public static PrecipitationReadingFactory GetInstance(int collectionLength)
+        public static PrecipitationReadingFactory GetInstance()
         {
             if (instance == null)
-                instance = new PrecipitationReadingFactory(collectionLength);
+                instance = new PrecipitationReadingFactory();
             return instance;
         }
 
-        protected override PrecipitationReading CreateItem(int id)
+        public override PrecipitationReading CreateItem(int id)
         {
             return new PrecipitationReading()
             {

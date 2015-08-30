@@ -8,26 +8,27 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
 {
     public class WeatherStationFactory : DataFactory<WeatherStation>
     {
-        private WeatherStationFactory(int collectionLength)
-            : base(collectionLength)
+        private WeatherStationFactory()
         {
         }
 
-        public static WeatherStationFactory GetInstance(int collectionLength)
+        public static WeatherStationFactory GetInstance()
         {
-            return new WeatherStationFactory(collectionLength);
+            return new WeatherStationFactory();
         }
 
-        protected override WeatherStation CreateItem(int id)
+        public override WeatherStation CreateItem(int id)
         {
-            var cityFactory = CityFactory.GetInstance(0);
+            var cityFactory = CityFactory.GetInstance();
+            var weatherReadingFactory = WeatherReadingFactory.GetInstance();
+            weatherReadingFactory.Initialize(1000);
 
             return new WeatherStation()
             {
                 Id = id,
                 City = cityFactory.GetRandomItem(),
                 Location = LocationFactory.GetRandomLocation(),
-                WeatherReadings = WeatherReadingFactory.GetInstance(1000).DataCollection.ToList()
+                WeatherReadings = weatherReadingFactory.DataCollection.ToList()
             };
         }
 

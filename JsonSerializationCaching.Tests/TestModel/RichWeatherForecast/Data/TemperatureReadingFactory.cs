@@ -10,19 +10,18 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
     {
         private static TemperatureReadingFactory instance;
 
-        private TemperatureReadingFactory(int collectionLength)
-            : base(collectionLength)
+        private TemperatureReadingFactory()
         {
         }
 
-        public static TemperatureReadingFactory GetInstance(int collectionLength)
+        public static TemperatureReadingFactory GetInstance()
         {
             if (instance == null)
-                instance = new TemperatureReadingFactory(collectionLength);
+                instance = new TemperatureReadingFactory();
             return instance;
         }
 
-        protected override TemperatureReading CreateItem(int id)
+        public override TemperatureReading CreateItem(int id)
         {
             return new TemperatureReading()
             {

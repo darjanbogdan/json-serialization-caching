@@ -18,13 +18,27 @@ namespace JsonSerializationCaching.Tests.Tests
         [Fact]
         public void PerformanceTest_RichWeatherForcesat_JsonSerialization()
         {
-            var weatherDefaultStations = WeatherStationFactory.GetInstance(20);
-            var weatherCachedStations = WeatherStationFactory.GetInstance(20);
+            #region Seed
+
+            CountryFactory.GetInstance().Initialize();
+            CityFactory.GetInstance().Initialize();
+            HumidityReadingFactory.GetInstance().Initialize(100);
+            PrecipitationReadingFactory.GetInstance().Initialize(100);
+            TemperatureReadingFactory.GetInstance().Initialize(100);
+            WindReadingFactory.GetInstance().Initialize(100);
+
+            var weatherDefaultStations = WeatherStationFactory.GetInstance();
+            weatherDefaultStations.Initialize(20);
+            var weatherCachedStations = WeatherStationFactory.GetInstance();
+            weatherCachedStations.Initialize(20);
+
+            #endregion
 
             //Default serialization
             JsonSerializer defaultSerializer = JsonSerializer.Create(CachingSettings.Default);
             var defaultMeasurement = TestSerializationPerformance(defaultSerializer, weatherDefaultStations.DataCollection);
             this.LogMeasurement("Default Measurement", defaultMeasurement);
+
             //Caching serialization
             JsonSerializer cachingSerializer = JsonSerializer.Create(CachingSettings.Default);
             cachingSerializer.ContractResolver = new CachingContractResolver();
@@ -69,14 +83,8 @@ namespace JsonSerializationCaching.Tests.Tests
             if (weatherReading != null) //Perform Update
             {
                 weatherStation.WeatherReadings.RemoveAll(wr => wr.Id == weatherReading.Id);
-                weatherStation.WeatherReadings.Add(new WeatherReading()
-                {
-                    Id = weatherReadingId,
-                    
-                });
             }
-            else //Perform Insert
-            { }
+            weatherStation.WeatherReadings.Add(WeatherReadingFactory.GetInstance().CreateItem(weatherReadingId));
         }
 
         private void LogMeasurement(string measurementTitle, Dictionary<int, double> measurement)

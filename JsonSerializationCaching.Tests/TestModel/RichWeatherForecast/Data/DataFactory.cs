@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
 {
-    public abstract class DataFactory<T> where T : IIdentity
+    public abstract class DataFactory<T> where T : IIdentity, new()
     {
         private int dataCollectionLength;
         protected int DataCollectionlength
@@ -20,17 +20,24 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
             get { return this.dataCollection; }
         }
 
-        public DataFactory(int collectionLength)
+        protected abstract void Populate(List<T> data);
+
+        /// <summary>
+        /// When default = 0, default collection length will be used (depends on the implementation factory)
+        /// </summary>
+        /// <param name="collectionLength"></param>
+        public void Initialize(int collectionLength = 0)
         {
             this.dataCollection = new List<T>();
             this.dataCollectionLength = collectionLength;
-            Populate(dataCollection);
+            Populate(this.dataCollection);
         }
 
-        protected abstract void Populate(List<T> data);
-
-        protected abstract T CreateItem(int id);
-
+        public virtual T CreateItem(int id)
+        {
+            return default(T);
+        }
+        
         public T GetItem(int id)
         {
             return dataCollection.FirstOrDefault(p => p.Id == id);

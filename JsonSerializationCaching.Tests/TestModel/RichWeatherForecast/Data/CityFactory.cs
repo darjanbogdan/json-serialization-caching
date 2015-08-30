@@ -11,25 +11,19 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Data
         private static CityFactory instance;
 
         private CityFactory()
-            : base(0)
         {
         }
 
-        public static CityFactory GetInstance(int collectionLength)
+        public static CityFactory GetInstance()
         {
             if (instance == null)
                 instance = new CityFactory();
             return instance;
         }
 
-        protected override City CreateItem(int id)
-        {
-            return new City() { Id = id };
-        }
-
         protected override void Populate(List<City> data)
         {
-            var countryFactory = CountryFactory.GetInstance(0);
+            var countryFactory = CountryFactory.GetInstance();
 
             var cities = new List<City>()
             {
