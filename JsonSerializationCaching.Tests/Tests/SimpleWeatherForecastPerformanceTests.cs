@@ -10,19 +10,6 @@ using Xunit;
 
 namespace JsonSerializationCaching.Tests.Tests
 {
-    /*
-    Real Time Weather Application 
-    PRICA: 
-    Svakih 5 sekundi senzori mnogobrojnih stanica za mjerenje imaju nova očitanja.
-    Aplikacija podržava slanje podataka za X gradova. Svaki grad ima Y stanica za mjerenje smještenih u različitim djelovima grada.
-    U stvarnom vremenu aplikacija prikazuje trenutna očitanja senzora po gradovima i po stanicama.
-
-    Zbog količine podataka koji se šalju na klijente potrebno je implementirati cachiranje vec ranije serijaliziranih očitanja. 
-    Objasniti kako se radi o nepromjenjivim objektima. 
-    Serverska implementacija je napravljena da svako novo očitanje je novi objekt kreiran, te se već postojeći objekti očitanja ne mjenjaju uslijed mogućnosti prikaza povijesti kroz vrijeme.
-    Kompletni podaci se šalju samo jednim requestom.
-    */
-
     public class SimpleWeatherForcastPerformanceTest
     {
         [Fact]
@@ -35,6 +22,7 @@ namespace JsonSerializationCaching.Tests.Tests
             JsonSerializer defaultSerializer = JsonSerializer.Create(CachingSettings.Default);
             var defaultMeasurement = TestSerializationPerformance(defaultSerializer, readings);
             this.LogMeasurement("Default Measurement", defaultMeasurement);
+
             //Caching serialization
             JsonSerializer cachingSerializer = JsonSerializer.Create(CachingSettings.Default);
             cachingSerializer.ContractResolver = new CachingContractResolver();

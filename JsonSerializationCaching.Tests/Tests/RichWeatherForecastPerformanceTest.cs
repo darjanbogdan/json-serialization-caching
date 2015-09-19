@@ -33,7 +33,7 @@ namespace JsonSerializationCaching.Tests.Tests
             JsonSerializer cachingSerializer = JsonSerializer.Create(CachingSettings.Default);
             cachingSerializer.ContractResolver = new CachingContractResolver();
             //TestSerializationPerformance(cachingSerializer, weatherCachingStations.DataCollection);
-            StartMeasurement("Cached Serialization", weatherStationsForCaching.GetAll(), cachingSerializer);
+            this.StartMeasurement("Cached Serialization", weatherStationsForCaching.GetAll(), cachingSerializer);
         }
 
         private Dictionary<int, double> TestSerializationPerformance(JsonSerializer serializer, IEnumerable<WeatherStation> weatherStations)
