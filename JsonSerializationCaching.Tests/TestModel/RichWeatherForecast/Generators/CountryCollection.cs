@@ -1,13 +1,19 @@
 ﻿using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
 using System.Collections.Generic;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Generators
 {
-    public class CountryGenerator : SingletonDataGenerator<CountryGenerator, Country>
+    public class CountryCollection : BaseDataGenerator<ICountry>
     {
-        public override void PopulateCollection(int? collectionLength = null)
+        public CountryCollection()
+            : base()
         {
-            var countries = new List<Country>()
+        }
+
+        protected override void GenerateDataManual(List<ICountry> dataCollection)
+        {
+            var countryCollection = new List<ICountry>()
             {
                 new Country()
                 {
@@ -24,7 +30,8 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Generator
                     TotalArea = 41543
                 }
             };
-            this.DataCollection = countries;
+
+            dataCollection.AddRange(countryCollection);
         }
     }
 }

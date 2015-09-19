@@ -1,8 +1,9 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class Country : CachingSerializable, IIdentity
+    public class Country : CachingSerializable, ICountry
     {
         public int Id { get; set; }
         

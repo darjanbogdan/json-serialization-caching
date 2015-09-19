@@ -1,10 +1,20 @@
 ﻿using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Enums;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
 {
-    public class TemperatureReadingFactory : FakeFactory<TemperatureReadingFactory, TemperatureReading>
+    public class TemperatureReadingFactory : IFakeIdentityItemFactory<TemperatureReading>
     {
-        public override TemperatureReading CreateFakeItem(int id)
+        private TemperatureReadingFactory()
+        {
+        }
+
+        public static TemperatureReadingFactory GetInstace()
+        {
+            return new TemperatureReadingFactory();
+        }
+
+        public TemperatureReading CreateFakeItem(int id)
         {
             return new TemperatureReading()
             {

@@ -2,9 +2,18 @@
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
 {
-    public class PrecipitationReadingFactory : FakeFactory<PrecipitationReadingFactory, PrecipitationReading>
+    public class PrecipitationReadingFactory : IFakeIdentityItemFactory<PrecipitationReading>
     {
-        public override PrecipitationReading CreateFakeItem(int id)
+        private PrecipitationReadingFactory()
+        {
+        }
+
+        public static PrecipitationReadingFactory GetInstance()
+        {
+            return new PrecipitationReadingFactory();
+        }
+
+        public PrecipitationReading CreateFakeItem(int id)
         {
             return new PrecipitationReading()
             {

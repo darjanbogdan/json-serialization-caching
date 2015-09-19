@@ -1,14 +1,16 @@
-﻿using JsonSerializationCaching.Serialization;
+﻿using System;
+using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class Location : CachingSerializable
+    public class Location : CachingSerializable, ILocation
     {
-        public Coordinate Latitude { get; set; }
-        public Coordinate Longitude { get; set; }
+        public ICoordinate Latitude { get; set; }
+        public ICoordinate Longitude { get; set; }
     }
 
-    public class Coordinate : CachingSerializable
+    public class Coordinate : CachingSerializable, ICoordinate
     {
         public int Degrees { get; set; }
         public int Minutes { get; set; }

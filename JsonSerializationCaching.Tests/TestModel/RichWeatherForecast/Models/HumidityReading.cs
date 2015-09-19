@@ -1,8 +1,10 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Enums;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class HumidityReading : CachingSerializable, IIdentity
+    public class HumidityReading : CachingSerializable, IHumidityReading
     {
         public int Id { get; set; }
 
@@ -12,25 +14,5 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
         public int Humidity { get; set; }
 
         public HumidityDescription Description { get; set; }
-    }
-
-    public enum HumidityDescription
-    {
-        /// <summary>
-        /// 0 - 40 %
-        /// </summary>
-        VeryDry,
-        /// <summary>
-        /// 40 - 70 %
-        /// </summary>
-        Dry,
-        /// <summary>
-        /// 75 - 95 %
-        /// </summary>
-        Humid,
-        /// <summary>
-        /// 95 - 100 %
-        /// </summary>
-        VeryHumid
     }
 }

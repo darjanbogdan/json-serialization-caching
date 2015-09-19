@@ -2,11 +2,14 @@
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
 {
-    public class LocationFactory : FakeFactory<LocationFactory, Location>
+    public class LocationFactory : IFakeItemFactory<Location>
     {
-        public override Location CreateFakeItem(int id)
+        private LocationFactory()
+        { }
+
+        public static LocationFactory GetInstance()
         {
-            return CreateFakeItem();
+            return new LocationFactory();
         }
 
         public Location CreateFakeItem()

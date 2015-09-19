@@ -1,8 +1,9 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class City : CachingSerializable, IIdentity
+    public class City : CachingSerializable, ICity
     {
         public int Id { get; set; }
 
@@ -17,6 +18,6 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
         /// </summary>
         public int TotalArea { get; set; }
 
-        public Country Country { get; set; }
+        public ICountry Country { get; set; }
     }
 }

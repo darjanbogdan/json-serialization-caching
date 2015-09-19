@@ -1,19 +1,30 @@
 ﻿using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Generators;
 using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Enums;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
 {
-    public class WeatherReadingFactory : FakeFactory<WeatherReadingFactory, WeatherReading>
+    public class WeatherReadingFactory : IFakeIdentityItemFactory<WeatherReading>
     {
-        public WeatherReadingFactory()
+        private HumidityReadingCollection humidityCollection;
+        private TemperatureReadingCollection temperatureCollection;
+        private WindReadingCollection windCollection;
+        private PrecipitationReadingCollection precipitationCollection;
+        
+        private WeatherReadingFactory()
         {
-            HumidityReadingGenerator.Instance.PopulateCollection(100);
-            PrecipitationReadingGenerator.Instance.PopulateCollection(100);
-            TemperatureReadingGenerator.Instance.PopulateCollection(100);
-            WindReadingGenerator.Instance.PopulateCollection(100);
+            this.humidityCollection = new HumidityReadingCollection(20);
+            this.precipitationCollection = new PrecipitationReadingCollection(20);
+            this.temperatureCollection = new TemperatureReadingCollection(20);
+            this.windCollection = new WindReadingCollection(20);
         }
 
-        public override WeatherReading CreateFakeItem(int id)
+        public static WeatherReadingFactory GetInstance()
+        {
+            return new WeatherReadingFactory();
+        }
+
+        public WeatherReading CreateFakeItem(int id)
         {
             return new WeatherReading()
             {
@@ -26,10 +37,10 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
                 Pressure = Utils.GetRandomNumber(1200),
                 Thunderstorms = Utils.GetRandomNumber(101),
                 Visibility = Utils.GetRandomNumber(20),
-                Humidity = HumidityReadingGenerator.Instance.GetRandomItem(),
-                Precipitation = PrecipitationReadingGenerator.Instance.GetRandomItem(),
-                Temperature = TemperatureReadingGenerator.Instance.GetRandomItem(),
-                Wind = WindReadingGenerator.Instance.GetRandomItem()
+                Humidity = this.humidityCollection.GetRandomItem(),
+                Precipitation = this.precipitationCollection.GetRandomItem(),
+                Temperature = this.temperatureCollection.GetRandomItem(),
+                Wind = this.windCollection.GetRandomItem()
             };
         }
     }

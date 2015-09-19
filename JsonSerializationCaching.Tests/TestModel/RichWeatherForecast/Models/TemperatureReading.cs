@@ -1,8 +1,10 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Enums;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class TemperatureReading : CachingSerializable, IIdentity
+    public class TemperatureReading : CachingSerializable, ITemperatureReading
     {
         public int Id { get; set; }
 
@@ -22,37 +24,5 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
         public int DewPoint { get; set; }
 
         public TemperatureDescription Description { get; set; }
-    }
-
-    public enum TemperatureDescription
-    {
-        /// <summary>
-        /// Temperature equal or lesser than 7 Celsius degrees
-        /// </summary>
-        VeryCold,
-        /// <summary>
-        /// Temperature between 8 - 12 Celsius degrees
-        /// </summary>
-        Cold,
-        /// <summary>
-        /// Temperature between 13 - 17 Celsius degrees
-        /// </summary>
-        Cool,
-        /// <summary>
-        /// Temperature between 18 - 22 Celsius degrees
-        /// </summary>
-        Mild,
-        /// <summary>
-        /// Temperature between 23 - 27 Celsius degrees
-        /// </summary>
-        Warm,
-        /// <summary>
-        /// Temperature between 28 - 32 Celsius degrees
-        /// </summary>
-        Hot,
-        /// <summary>
-        /// Temperature equals or greater than 33
-        /// </summary>
-        VeryHot
     }
 }

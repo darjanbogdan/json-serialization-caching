@@ -1,19 +1,21 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Enums;
 using System;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class WeatherReading : CachingSerializable, IIdentity
+    public class WeatherReading : CachingSerializable, IWeatherReading
     {
         public int Id { get; set; }
 
-        public TemperatureReading Temperature { get; set; }
+        public ITemperatureReading Temperature { get; set; }
 
-        public PrecipitationReading Precipitation { get; set; }
+        public IPrecipitationReading Precipitation { get; set; }
 
-        public HumidityReading Humidity { get; set; }
+        public IHumidityReading Humidity { get; set; }
 
-        public WindReading Wind { get; set; }
+        public IWindReading Wind { get; set; }
 
         public int MaxUVIndex { get; set; }
 
@@ -42,20 +44,5 @@ namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
         public string Description { get; set; }
 
         public string ShortDescription { get; set; }
-    }
-
-    public enum CloudType
-    {
-        Cirrocumulus,
-        Altocumulus,
-        Cumulonimbus,
-        Cumulus,
-        Cirrus,
-        Cirrostratus,
-        Altostratus,
-        Nimbostratus,
-        Stratocumulus,
-        Stratus,
-        None
     }
 }

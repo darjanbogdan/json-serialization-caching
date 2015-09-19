@@ -4,21 +4,32 @@ using System.Linq;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Factories
 {
-    public class WeatherStationFactory : FakeFactory<WeatherStationFactory, WeatherStation>
+    public class WeatherStationFactory : IFakeIdentityItemFactory<WeatherStation>
     {
-        public WeatherStationFactory()
+        private LocationFactory locationFactory;
+        private CityCollection cityCollection;
+        private WeatherReadingCollection weatherCollection;
+
+        private WeatherStationFactory()
         {
-            CityGenerator.Instance.PopulateCollection();
+            locationFactory = LocationFactory.GetInstance();
+            this.cityCollection = new CityCollection();
+            this.weatherCollection = new WeatherReadingCollection(50);
         }
 
-        public override WeatherStation CreateFakeItem(int id)
+        public static WeatherStationFactory GetInstance()
+        {
+            return new WeatherStationFactory();
+        }
+
+        public WeatherStation CreateFakeItem(int id)
         {
             return new WeatherStation()
             {
                 Id = id,
-                City = CityGenerator.Instance.GetRandomItem(),
-                Location = LocationFactory.Instance.CreateFakeItem(),
-                WeatherReadings = WeatherReadingGenerator.GetInstance(100).DataCollection.ToList()
+                City = cityCollection.GetRandomItem(),
+                Location = locationFactory.CreateFakeItem(),
+                WeatherReadings = weatherCollection.GetAll().ToList()
             };
         }
     }

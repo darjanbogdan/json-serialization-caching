@@ -1,8 +1,9 @@
 ﻿using JsonSerializationCaching.Serialization;
+using JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models.Contracts;
 
 namespace JsonSerializationCaching.Tests.TestModel.RichWeatherForecast.Models
 {
-    public class PrecipitationReading : CachingSerializable, IIdentity
+    public class PrecipitationReading : CachingSerializable, IPrecipitationReading
     {
         public int Id { get; set; }
 
